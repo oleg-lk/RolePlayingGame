@@ -8,6 +8,10 @@ public abstract class GameUnit {
     protected int strength;
     protected int agility;
 
+    public int getHealth() {
+        return health;
+    }
+
     private int genRand(int defValue, int dltValue) {
         int value = defValue + random.nextInt(-dltValue, dltValue);
         return Math.max(1, value);

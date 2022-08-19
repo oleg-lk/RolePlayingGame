@@ -1,6 +1,5 @@
 package world;
 
-import world.monster.ConstsMonsters;
 import world.monster.Goblin;
 import world.monster.Skelet;
 
@@ -17,26 +16,33 @@ public class Forest {
         this.reader = reader;
     }
 
-    private void generateMonsterPack(Hero hero)
-    {
+    private void generateMonsterPack(Hero hero) {
         final int level = hero.getLevel();
-        final float healthKff = 1 + (level-1) * ConstsMonsters.KffByLevel_PackHealth;
-        final float monstersHealth = ConstsMonsters.PackHealth * healthKff;
+        final float healthKff = 1 + (level - 1) * Consts.Monsters.KffByLevel_PackHealth;
+        final float monstersHealth = Consts.Monsters.PackHealth * healthKff;
 
         final int cntMonsters = 2;
         Random random = new Random(System.currentTimeMillis());
-        while(true) {
+        var allHealth = 0;
+        while (true) {
             final int indMonster = random.nextInt(0, cntMonsters);
-            GameUnit monster = switch (indMonster){
+            GameUnit monster = switch (indMonster) {
                 case 0 -> new Skelet(level);
                 case 1 -> new Goblin(level);
                 default -> new Skelet(level);
             };
+            allHealth += monster.getHealth();
+            System.out.println(monster.getHealth());
             monsterPack.add(monster);
+            if(allHealth > monstersHealth){
+                break;
+            }
         }
+        System.out.println(monsterPack);
     }
-    void enter(Hero hero){
-        if (monsterPack.size()==0){
+
+    void enter(Hero hero) {
+        if (monsterPack.size() == 0) {
             generateMonsterPack(hero);
         }
 
