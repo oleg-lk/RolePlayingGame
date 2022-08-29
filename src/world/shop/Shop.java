@@ -1,4 +1,4 @@
-package world;
+package world.shop;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
@@ -33,14 +33,16 @@ public class Shop {
         goods.add(new Good("зелье +10a", 100));
     }
 
-    void printGoods(){
+    public void printGoods(){
         goods.stream().forEach(System.out::println);
     }
 
-    void enter()
+    public void enter()
     {
-        while (true){
-            break;
-        }
+        printGoods();
+        System.out.println("Торговец отсутствует");
+        //while (true){
+        //    break;
+        //}
     }
 }

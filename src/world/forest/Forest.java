@@ -2,15 +2,15 @@ package world.forest;
 
 import world.Consts;
 import world.GameUnit;
-import world.Hero;
+import hero.Hero;
 import world.battle.Battle;
 import world.monster.Goblin;
+import world.monster.Monster;
 import world.monster.Skelet;
 
-import java.awt.*;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.*;
-import java.util.List;
 
 public class Forest {
     BufferedReader reader;
@@ -24,7 +24,7 @@ public class Forest {
         final float monstersPackHealth = Consts.Monsters.PackHealth * healthKff;
 
         final int cntMonsters = 2;
-        LinkedList<GameUnit> mosterPack = new LinkedList<>();
+        LinkedList<GameUnit> monsterPack = new LinkedList<>();
         Random random = new Random(System.currentTimeMillis());
         var allHealth = 0;
         var cnt = 0;
@@ -36,27 +36,50 @@ public class Forest {
                 default -> new Skelet(cnt++, level);
             };
             allHealth += monster.getHealth();
-            mosterPack.add(monster);
+            monsterPack.add(monster);
             if (allHealth > monstersPackHealth) {
                 break;
             }
         }
-        /**/
-        System.out.println("Монстры:");
-        mosterPack.stream().forEach(gameUnit -> System.out.println('\t'+gameUnit.toString()));
-        return mosterPack;
+        /*print monster pack*/
+        System.out.println("Monsters:");
+        monsterPack.stream().forEach(gameUnit -> System.out.println('\t' + ((Monster) gameUnit).toStringFull()));
+        return monsterPack;
     }
 
-    public void enter(Hero hero, int level) {
-        var mosterPack = generateMonsterPack(level);
+    public void enter(Hero hero, int level) throws IOException, InterruptedException {
+        var monsterPack = generateMonsterPack(level);
         /**/
-        Battle battle = new Battle(mosterPack, hero);
+        Battle battle = new Battle(monsterPack, hero);
         Thread thread = new Thread(battle);
+        System.out.println("Battle start in 3 seconds");
+        System.out.println("For pause press p");
+        for (int i = 3; i > 0; i--) {
+            System.out.println(i + "...");
+                Thread.sleep(1000);
+        }
         thread.start();
-        try {
+        /**/
+        while(thread.isAlive()) {
+            final String s = reader.readLine();
+            if(s.equals("p")){
+                /*pause*/
+                battle.pause(true);
+                System.out.println("To continue press \"c\"");
+                System.out.println("Press \"q\" to exit");
+            }
+            else if(s.equals("c")) {
+                /*continue*/
+                battle.pause(false);
+            }
+            else if(s.equals("q")) {
+                /*exit from forest*/
+                break;
+            }
+        }
+        if(thread.isAlive()) {
+            thread.interrupt();
             thread.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 }
