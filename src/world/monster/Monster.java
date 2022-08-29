@@ -1,6 +1,6 @@
 package world.monster;
 
-import world.Consts;
+import world.consts.Consts;
 import world.GameUnit;
 
 public abstract class Monster extends GameUnit {
@@ -28,16 +28,16 @@ public abstract class Monster extends GameUnit {
 
     protected void generateParameters(int level, Consts.Monsters monsterConst)
     {
-        final float healthKff = 1 + (level-1) * monsterConst.KffByLevel_Health;
-        final float agilityKff = 1 + (level-1) * monsterConst.KffByLevel_Agility;
-        final float strengthKff = 1 + (level-1) * monsterConst.KffByLevel_Strength;
-        final float goldKff = 1 + (level-1) * monsterConst.KffByLevel_Gold;
-        final float goldExp = 1 + (level-1) * monsterConst.KffByLevel_Exp;
+        final float healthKff = level * monsterConst.KffByLevel_Health;
+        final float agilityKff = level * monsterConst.KffByLevel_Agility;
+        final float strengthKff = level * monsterConst.KffByLevel_Strength;
+        final float goldKff = level * monsterConst.KffByLevel_Gold;
+        final float expKff = level * monsterConst.KffByLevel_Exp;
         /**/
         genHealth(monsterConst.DefHealth * healthKff);
         genAgility(monsterConst.DefAgility * agilityKff);
         genStrength(monsterConst.DefStrength*strengthKff);
         gold = (int)(monsterConst.DefGold*goldKff);
-        exp = (int)(monsterConst.DefExp*goldExp);
+        exp = (int)(monsterConst.DefExp*expKff);
     }
 }

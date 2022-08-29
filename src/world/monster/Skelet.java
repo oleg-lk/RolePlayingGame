@@ -1,7 +1,6 @@
 package world.monster;
 
-import world.Consts;
-import world.GameUnit;
+import world.consts.Consts;
 
 public class Skelet extends Monster {
     public Skelet(int indexSkelet, int level) {

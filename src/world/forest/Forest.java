@@ -1,8 +1,8 @@
 package world.forest;
 
-import world.Consts;
+import world.consts.Consts;
 import world.GameUnit;
-import hero.Hero;
+import world.hero.Hero;
 import world.battle.Battle;
 import world.monster.Goblin;
 import world.monster.Monster;
@@ -20,7 +20,7 @@ public class Forest {
     }
 
     private LinkedList<GameUnit> generateMonsterPack(int level) {
-        final float healthKff = 1 + (level - 1) * Consts.Monsters.KffByLevel_PackHealth;
+        final float healthKff = level * Consts.Monsters.KffByLevel_PackHealth;
         final float monstersPackHealth = Consts.Monsters.PackHealth * healthKff;
 
         final int cntMonsters = 2;
@@ -53,33 +53,11 @@ public class Forest {
         Battle battle = new Battle(monsterPack, hero);
         Thread thread = new Thread(battle);
         System.out.println("Battle start in 3 seconds");
-        System.out.println("For pause press p");
         for (int i = 3; i > 0; i--) {
             System.out.println(i + "...");
                 Thread.sleep(1000);
         }
         thread.start();
-        /**/
-        while(thread.isAlive()) {
-            final String s = reader.readLine();
-            if(s.equals("p")){
-                /*pause*/
-                battle.pause(true);
-                System.out.println("To continue press \"c\"");
-                System.out.println("Press \"q\" to exit");
-            }
-            else if(s.equals("c")) {
-                /*continue*/
-                battle.pause(false);
-            }
-            else if(s.equals("q")) {
-                /*exit from forest*/
-                break;
-            }
-        }
-        if(thread.isAlive()) {
-            thread.interrupt();
-            thread.join();
-        }
+        thread.join();
     }
 }

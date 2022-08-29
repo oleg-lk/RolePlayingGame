@@ -1,8 +1,8 @@
 package world.battle;
 
-import world.Consts;
+import world.consts.Consts;
 import world.GameUnit;
-import hero.Hero;
+import world.hero.Hero;
 import world.monster.Monster;
 
 import java.util.Collections;
@@ -53,8 +53,8 @@ public class Battle implements Runnable
                 gameUnit.attack(monster);
                 if(!monster.isAlive()){
                     System.out.println("%s died".formatted(monster));
-                    goldFromBattle += ((Monster)monster).getExp();
-                    expFromBattle += ((Monster)monster).getGold();
+                    goldFromBattle += ((Monster)monster).getGold();
+                    expFromBattle += ((Monster)monster).getExp();
                     hero.setExp(((Monster)monster).getExp());
                     hero.setGold(((Monster)monster).getGold());
                     battlePack.remove(monster);

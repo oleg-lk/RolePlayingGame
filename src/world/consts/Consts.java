@@ -1,4 +1,4 @@
-package world;
+package world.consts;
 
 public class Consts {
     /*tick in mellisec for turn*/
@@ -6,20 +6,20 @@ public class Consts {
 
     static public class Hero {
 
-        public static float KffByLevel_Health = 1.2f;
-        public static float KffByLevel_Agility = 1.1f;
-        public static float KffByLevel_Strength = 1.4f;
+        public static float KffByLevel_Health = 0.2f;
+        public static float KffByLevel_Agility = 0.2f;
+        public static float KffByLevel_Strength = 0.3f;
         public static int HeroDefHealth = 100;
-        public static int HeroDefAgility = 15;
-        public static int HeroDefStrength = 10;
+        public static int HeroDefAgility = 19;
+        public static int HeroDefStrength = 21;
     }
     /**/
     static public class Monsters {
         /*min/max level for monsters*/
         public static int MinLevel = 1;
         public static int MaxLevel = 10;
-        public static int PackHealth = 30;
-        public static float KffByLevel_PackHealth = 1.5f;
+        public static int PackHealth = 35;
+        public static float KffByLevel_PackHealth = 0.9f;
         /**/
         public int DefHealth;
         public int DefAgility;
@@ -48,17 +48,17 @@ public class Consts {
             KffByLevel_Agility = kffByLevel_Agility;
             KffByLevel_Strength = kffByLevel_Strength;
             KffByLevel_Gold = kffByLevel_Gold;
-            KffByLevel_Exp = KffByLevel_Exp;
+            KffByLevel_Exp = kffByLevel_Exp;
         }
     }
     /**/
-    static public Monsters SkeletMonster = new Monsters(30, 10, 8,
+    static public Monsters SkeletMonster = new Monsters(30, 16, 9,
             100, 50,
-            1.3f, 1.2f, 1.4f,
-            1.4f, 1.5f);
-    static public Monsters GoblinMonster = new Monsters(40, 15, 9,
+            0.9f, 0.7f, 0.9f,
+            0.9f, 0.8f);
+    static public Monsters GoblinMonster = new Monsters(40, 16, 10,
             90, 40,
-            1.4f, 1.3f, 1.3f,
-            1.4f, 1.5f);
+            0.7f, 0.85f, 0.9f,
+            0.8f, 0.8f);
 }
 

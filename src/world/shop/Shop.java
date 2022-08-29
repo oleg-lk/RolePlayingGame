@@ -26,11 +26,11 @@ public class Shop {
     }
     List<Good> goods = new ArrayList<>();
     {
-        goods.add(new Good("зелье 10hp", 50));
-        goods.add(new Good("зелье 20hp", 90));
-        goods.add(new Good("зелье 50hp", 200));
-        goods.add(new Good("зелье +10s", 50));
-        goods.add(new Good("зелье +10a", 100));
+        goods.add(new Good("potion 10hp", 50));
+        goods.add(new Good("potion 20hp", 90));
+        goods.add(new Good("potion 50hp", 200));
+        goods.add(new Good("potion +10s", 50));
+        goods.add(new Good("potion +10a", 100));
     }
 
     public void printGoods(){
@@ -40,7 +40,7 @@ public class Shop {
     public void enter()
     {
         printGoods();
-        System.out.println("Торговец отсутствует");
+        System.out.println("Trader not here");
         //while (true){
         //    break;
         //}

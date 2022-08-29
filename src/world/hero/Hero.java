@@ -1,6 +1,6 @@
-package hero;
+package world.hero;
 
-import world.Consts;
+import world.consts.Consts;
 import world.GameUnit;
 
 public class Hero extends GameUnit {
@@ -37,30 +37,30 @@ public class Hero extends GameUnit {
         if (!isAlive()) {
             return name + " is dead";
         }
-        return "%s (%dhp %dag %dst %dgold %dexp)".formatted(name, (int)health, (int)agility, (int)strength,
-                gold, exp);
+        return "%s (%dhp %dag %dst %dgold %dlevel %dexp)".formatted(name, (int)health, (int)agility, (int)strength,
+                gold, currentLevel, exp);
     }
 
     public Hero(String name) {
         this.name = name;
         /**/
-        this.setStats();
+        genHealth(Consts.Hero.HeroDefHealth);
+        genAgility(Consts.Hero.HeroDefAgility);
+        genStrength(Consts.Hero.HeroDefStrength);
     }
 
-    public void setStats(){
+    public void checkLevel(){
         /**/
         final var level = getLevel();
         if (currentLevel == level){
             return;
         }
         currentLevel = level;
-        System.out.println("exp = %d, level = %d".formatted(exp, level));
-        final float healthKff = 1 + (level-1) * Consts.Hero.KffByLevel_Health;
-        final float agilityKff = 1 + (level-1) * Consts.Hero.KffByLevel_Agility;
-        final float strengthKff = 1 + (level-1) * Consts.Hero.KffByLevel_Strength;
-        /**/
-        genHealth(Consts.Hero.HeroDefHealth);
-        genAgility(Consts.Hero.HeroDefAgility);
-        genStrength(Consts.Hero.HeroDefStrength);
+        final float healthKff = level * Consts.Hero.KffByLevel_Health;
+        final float agilityKff = level * Consts.Hero.KffByLevel_Agility;
+        final float strengthKff = level * Consts.Hero.KffByLevel_Strength;
+        health += health * healthKff;
+        agility += agility * agilityKff;
+        strength += strength * strengthKff;
     }
 }
