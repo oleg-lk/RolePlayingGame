@@ -1,7 +1,7 @@
 package world;
 
 public class Hero extends GameUnit {
-    private String Name;
+    private String name;
     private int money;
     private int experience = 0;
 
@@ -16,18 +16,18 @@ public class Hero extends GameUnit {
         return level;
     }
 
-    public String getName() {
-        return Name;
+    @Override
+    public String toString() {
+        return "%s (%dh %da %ds)".formatted(name, health, agility, strength);
     }
 
     public Hero(String name, int money, int experience) {
-        Name = name;
+        this.name = name;
         this.money = money;
         this.experience = experience;
         /**/
-        genHealth(Consts.HeroDefHealth);
-        genAgility(Consts.HeroDefAgility);
-        genStrength(Consts.HeroDefStrength);
-        System.out.println("%s(%d health, %d agility, %d strenght) created".formatted(name, health, agility, strength));
+        genHealth(Consts.Hero.HeroDefHealth);
+        genAgility(Consts.Hero.HeroDefAgility);
+        genStrength(Consts.Hero.HeroDefStrength);
     }
 }
